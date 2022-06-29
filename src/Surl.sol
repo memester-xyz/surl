@@ -32,7 +32,9 @@ library Surl {
 
         curlParams = string.concat(curlParams, " -X ", method, " ");
 
-        if (method )
+        if (bytes(body).length > 0) {
+            curlParams = string.concat(curlParams, " -d \"", body, "\" ");
+        }
 
         string[] memory inputs = new string[](3);
         inputs[0] = "sh";

@@ -15,7 +15,7 @@ contract SurlGetHeadersScript is Script {
         headers[0] = "accept: application/json";
         headers[1] = "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==";
         // running local flask script which just returns request headers as json
-        (uint256 status, bytes memory data) = "http://localhost:5001".get(headers);
+        (uint256 status, bytes memory data) = "https://httpbin.org/headers".get(headers);
 
         console.log("status", status);
         console.log("data", string(data));
