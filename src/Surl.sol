@@ -2,7 +2,6 @@
 pragma solidity ^0.8.13;
 
 import {Vm} from "forge-std/Vm.sol";
-import {console} from "forge-std/console.sol";
 
 library Surl {
     Vm constant vm =
@@ -61,7 +60,6 @@ library Surl {
         inputs[2] = string(
             bytes.concat('./src/curl.sh ', bytes(curlParams), bytes(self), "")
         );
-        console.log(inputs[2]);
         bytes memory res = vm.ffi(inputs);
 
         (status, data) = abi.decode(res, (uint256, bytes));
