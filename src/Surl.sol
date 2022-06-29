@@ -10,16 +10,29 @@ library Surl {
     Vm constant vm = Vm(address(bytes20(uint160(uint256(keccak256("hevm cheat code"))))));
 
     function get(string memory self) internal returns (uint256 status, bytes memory data) {
-        string[] memory headers = new string[](0);
-        return get(self, headers);
+        string[] memory empty = new string[](0);
+        return get(self, empty);
     }
 
     function get(string memory self, string[] memory headers) internal returns (uint256 status, bytes memory data) {
+        return curl(self, headers, "", "GET");
+    }
+
+
+    function post(string memory self, string[] memory headers, string memory body) internal returns (uint256 status, bytes memory data) {
+        return curl(self, headers, body, "POST");
+    }
+
+    function curl(string memory self, string[] memory headers, string memory body, string memory method) internal returns (uint256 status, bytes memory data) {
         string memory curlParams = "";
 
         for(uint256 i = 0; i < headers.length; i++) {
             curlParams = string.concat(curlParams, "-H \"", headers[i], "\" ");
         }
+
+        curlParams = string.concat(curlParams, " -X ", method, " ");
+
+        if (method )
 
         string[] memory inputs = new string[](3);
         inputs[0] = "sh";

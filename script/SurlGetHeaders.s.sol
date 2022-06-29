@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 
 import {Surl} from "src/Surl.sol";
 
-contract SurlScript is Script {
+contract SurlGetHeadersScript is Script {
     using Surl for *;
 
     function setUp() public {}
