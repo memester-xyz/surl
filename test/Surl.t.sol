@@ -26,10 +26,32 @@ contract SurlTest is Test {
         (uint256 status, bytes memory data) = "https://httpbin.org/headers".get(headers);
 
         assertEq(status, 200);
-        console.log(string(data));
 
         strings.slice memory responseText = string(data).toSlice();
         assertTrue(responseText.contains(("QWxhZGRpbjpvcGVuIHNlc2FtZQ==").toSlice()));
         assertTrue(responseText.contains(("application/json").toSlice()));
+    }
+
+    function testPostFormData() public {
+        string[] memory headers = new string[](1);
+        headers[0] = "Content-Type: application/x-www-form-urlencoded";
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "formfield=myemail@ethereum.org");
+
+        assertEq(status, 200);
+
+        strings.slice memory responseText = string(data).toSlice();
+        assertTrue(responseText.contains(("formfield").toSlice()));
+        assertTrue(responseText.contains(("myemail@ethereum.org").toSlice()));
+    }
+
+    function testPostJson() public {
+        string[] memory headers = new string[](1);
+        headers[0] = "Content-Type: application/json";
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "{\"foo\": \"bar\"}");
+
+        assertEq(status, 200);
+        strings.slice memory responseText = string(data).toSlice();
+        assertTrue(responseText.contains(("foo").toSlice()));
+        assertTrue(responseText.contains(("bar").toSlice()));
     }
 }

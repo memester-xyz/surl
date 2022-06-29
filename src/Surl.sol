@@ -18,7 +18,6 @@ library Surl {
         return curl(self, headers, "", "GET");
     }
 
-
     function post(string memory self, string[] memory headers, string memory body) internal returns (uint256 status, bytes memory data) {
         return curl(self, headers, body, "POST");
     }
