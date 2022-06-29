@@ -11,8 +11,10 @@ contract SurlScript is Script {
     function setUp() public {}
 
     function run() public {
-        string[] memory headers = new string[](1);
+        string[] memory headers = new string[](2);
         headers[0] = "accept: application/json";
+        headers[1] = "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==";
+        // running local flask script which just returns request headers as json
         (uint256 status, bytes memory data) = "http://localhost:5001".get(headers);
 
         console.log("status", status);

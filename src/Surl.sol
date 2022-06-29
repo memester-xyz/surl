@@ -25,7 +25,7 @@ library Surl {
         inputs[0] = "sh";
         inputs[1] = "-c";
         inputs[2] = string(
-            bytes.concat('./src/curl.sh ', "'", bytes(curlParams), bytes(self), "'", "")
+            bytes.concat('./src/curl.sh ', bytes(curlParams), bytes(self), "")
         );
         console.log(inputs[2]);
         bytes memory res = vm.ffi(inputs);
