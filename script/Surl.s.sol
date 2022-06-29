@@ -11,9 +11,12 @@ contract SurlScript is Script {
     function setUp() public {}
 
     function run() public {
-        (uint256 status, bytes memory data) = "https://jsonplaceholder.typicode.com/todos/1".get();
+        string[] memory headers = new string[](1);
+        headers[0] = "accept: application/json";
+        (uint256 status, bytes memory data) = "http://localhost:5001".get(headers);
 
         console.log("status", status);
         console.log("data", string(data));
     }
+    
 }
