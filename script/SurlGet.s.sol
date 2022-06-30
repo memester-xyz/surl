@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 
 import {Surl} from "src/Surl.sol";
 
-contract SurlScript is Script {
+contract SurlGetScript is Script {
     using Surl for *;
 
     function setUp() public {}
@@ -15,5 +15,5 @@ contract SurlScript is Script {
 
         console.log("status", status);
         console.log("data", string(data));
-    }
+    }    
 }
