@@ -17,7 +17,7 @@ forge install memester-xyz/surl
 import {Surl} from "surl/Surl.sol";
 ```
 
-2. Add this directive:
+2. Add this directive inside of your Contract:
 ```solidity
 using Surl for *;
 ```
@@ -48,11 +48,6 @@ headers[0] = "Content-Type: application/json";
 ## Example
 
 We have example usage for both [tests](./test/Surl.t.sol) and [scripts](./script/).
-
-To see the scripts in action, you can run:
-```
-forge script SurlScript
-```
 
 ## Contributing
 
