@@ -45,13 +45,13 @@ library Surl {
         string memory curlParams = "";
 
         for (uint256 i = 0; i < headers.length; i++) {
-            curlParams = string.concat(curlParams, "-H \"", headers[i], "\" ");
+            curlParams = string.concat(curlParams, '-H "', headers[i], '" ');
         }
 
         curlParams = string.concat(curlParams, " -X ", method, " ");
 
         if (bytes(body).length > 0) {
-            curlParams = string.concat(curlParams, " -d \"", body, "\" ");
+            curlParams = string.concat(curlParams, ' -d "', body, '" ');
         }
 
         string[] memory inputs = new string[](3);

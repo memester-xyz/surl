@@ -47,7 +47,7 @@ contract SurlTest is Test {
     function testPostJson() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/json";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "{\"foo\": \"bar\"}");
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, '{"foo": "bar"}');
 
         assertEq(status, 200);
         strings.slice memory responseText = string(data).toSlice();
