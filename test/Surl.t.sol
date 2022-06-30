@@ -35,7 +35,10 @@ contract SurlTest is Test {
     function testPostFormData() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/x-www-form-urlencoded";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "formfield=myemail@ethereum.org");
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(
+            headers,
+            "formfield=myemail@ethereum.org"
+        );
 
         assertEq(status, 200);
 

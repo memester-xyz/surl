@@ -15,5 +15,5 @@ contract SurlGetScript is Script {
 
         console.log("status", status);
         console.log("data", string(data));
-    }    
+    }
 }
