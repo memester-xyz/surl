@@ -57,4 +57,33 @@ contract SurlTest is Test {
         assertTrue(responseText.contains(("foo").toSlice()));
         assertTrue(responseText.contains(("bar").toSlice()));
     }
+
+    function testPut() public {
+        (uint256 status, ) = "https://httpbin.org/put".put();
+
+        assertEq(status, 200);
+    }
+
+    function testPutJson() public {
+        string[] memory headers = new string[](1);
+        headers[0] = "Content-Type: application/json";
+        (uint256 status, bytes memory data) = "https://httpbin.org/put".put(headers, '{"foo": "bar"}');
+
+        assertEq(status, 200);
+        strings.slice memory responseText = string(data).toSlice();
+        assertTrue(responseText.contains(("foo").toSlice()));
+        assertTrue(responseText.contains(("bar").toSlice()));
+    }
+
+    function testDelete() public {
+        (uint256 status, ) = "https://httpbin.org/delete".del();
+
+        assertEq(status, 200);
+    }
+
+    function testPatch() public {
+        (uint256 status, ) = "https://httpbin.org/patch".patch();
+
+        assertEq(status, 200);
+    }
 }
