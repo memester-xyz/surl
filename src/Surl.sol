@@ -15,12 +15,96 @@ library Surl {
         return curl(self, headers, "", "GET");
     }
 
+    function del(
+        string memory self
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, "", "DELETE");
+    }
+
+    function del(
+        string memory self,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, body, "DELETE");
+    }
+
+    function del(
+        string memory self,
+        string[] memory headers,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        return curl(self, headers, body, "DELETE");
+    }
+
+    function patch(
+        string memory self
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, "", "PATCH");
+    }
+
+    function patch(
+        string memory self,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, body, "PATCH");
+    }
+
+    function patch(
+        string memory self,
+        string[] memory headers,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        return curl(self, headers, body, "PATCH");
+    }
+
+    function post(
+        string memory self
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, "", "POST");
+    }
+
+    function post(
+        string memory self,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, body, "POST");
+    }
+
     function post(
         string memory self,
         string[] memory headers,
         string memory body
     ) internal returns (uint256 status, bytes memory data) {
         return curl(self, headers, body, "POST");
+    }
+
+    function put(
+        string memory self
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, "", "PUT");
+    }
+
+    function put(
+        string memory self,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        string[] memory empty = new string[](0);
+        return curl(self, empty, body, "PUT");
+    }
+
+    function put(
+        string memory self,
+        string[] memory headers,
+        string memory body
+    ) internal returns (uint256 status, bytes memory data) {
+        return curl(self, headers, body, "PUT");
     }
 
     function curl(

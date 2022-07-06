@@ -37,6 +37,15 @@ headers[1] = "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==";
 string[] memory headers = new string[](1);
 headers[0] = "Content-Type: application/json";
 (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, '{"foo": "bar"}');
+
+// Perform a put request
+(uint256 status, bytes memory data) = "https://httpbin.org/put".put();
+
+// Perform a patch request
+(uint256 status, bytes memory data) = "https://httpbin.org/put".patch();
+
+// Perform a delete request (unfortunately 'delete' is a reserved keyword and cannot be used as a function name)
+(uint256 status, bytes memory data) = "https://httpbin.org/delete".del();
 ```
 
 3. You must enable [ffi](https://book.getfoundry.sh/cheatcodes/ffi.html) in order to use the library. You can either pass the `--ffi` flag to any forge commands you run (e.g. `forge script Script --ffi`), or you can add `ffi = true` to your `foundry.toml` file.
