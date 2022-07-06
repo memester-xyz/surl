@@ -1,4 +1,4 @@
-# <h1 align="center"> Surl </h1>
+# <h1 align="center"> surl </h1>
 
 **Perform web requests from Solidity scripts/tests**
 
