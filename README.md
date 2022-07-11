@@ -13,16 +13,19 @@ forge install memester-xyz/surl
 ## Usage
 
 1. Add this import to your script or test:
+
 ```solidity
 import {Surl} from "surl/Surl.sol";
 ```
 
 2. Add this directive inside of your Contract:
+
 ```solidity
 using Surl for *;
 ```
 
 3. Make your HTTP requests:
+
 ```solidity
 // Perform a simple get request
 (uint256 status, bytes memory data) = "https://httpbin.org/get".get();
@@ -52,7 +55,7 @@ headers[0] = "Content-Type: application/json";
 
 ### Notes
 
- - It assumes you are running on a UNIX based machine with `bash`, `tail`, `sed`, `tr`, `curl` and `cast` installed.
+- It assumes you are running on a UNIX based machine with `bash`, `tail`, `sed`, `tr`, `curl` and `cast` installed.
 
 ## Example
 
@@ -74,12 +77,12 @@ forge test
 
 ## Why?
 
-[Forge scripting](https://book.getfoundry.sh/tutorials/solidity-scripting.html) is becoming more popular. With Solenv your scripts are even more powerful and natural to work with.
+[Forge scripting](https://book.getfoundry.sh/tutorials/solidity-scripting.html) is becoming more popular. With Surl you can extend your scripts easily with HTTP requests.
 
 ## Goes well with:
 
- * [Solenv](https://github.com/memester-xyz/solenv): Load .env files in Solidity scripts/tests.
- * A JSON parser? We found some in-progress work on this front, but nothing quite ready. If you're working on a JSON parser in Solidity, please let us know.
+- [Solenv](https://github.com/memester-xyz/solenv): Load .env files in Solidity scripts/tests.
+- A JSON parser? We found some in-progress work on this front, but nothing quite ready. If you're working on a JSON parser in Solidity, please let us know.
 
 ## Development
 
