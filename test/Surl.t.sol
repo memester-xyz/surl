@@ -88,28 +88,24 @@ contract SurlTest is Test {
         string memory url = "https://api.1inch.io/v5.0/1/swap";
         string memory params = string.concat(
             "?fromAddress=",
-            vm.toString(address(0)),
+            vm.toString(address(0xBE0eB53F46cd790Cd13851d5EFf43D12404d33E8)),
             "&fromTokenAddress=",
-            vm.toString(address(0x6B175474E89094C44Da98b954EedeAC495271d0F)),
+            vm.toString(address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE)),
             "&toTokenAddress=",
-            vm.toString(address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)),
+            vm.toString(address(0x111111111117dC0aa78b770fA6A738034120C302)),
             "&amount=",
-            vm.toString(uint256(100 ether)),
+            vm.toString(uint256(1 ether)),
             "&slippage=",
             vm.toString(uint256(3)),
-            "&allowPartialFill=false",
-            "&disableEstimate=true"
+            "&allowPartialFill=false"
         );
 
-        string[] memory headers = new string[](2);
+        string[] memory headers = new string[](1);
         headers[0] = "accept: application/json";
-        headers[1] =
-            "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15";
 
         string memory request = string.concat(url, params);
-        (uint256 status, bytes memory data) = request.get(headers);
+        (uint256 status,) = request.get(headers);
 
-        console2.log(string(data));
         assertEq(status, 200);
     }
 }
