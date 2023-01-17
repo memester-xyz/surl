@@ -35,10 +35,7 @@ contract SurlTest is Test {
     function testPostFormData() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/x-www-form-urlencoded";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(
-            headers,
-            "formfield=myemail@ethereum.org"
-        );
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "formfield=myemail@ethereum.org");
 
         assertEq(status, 200);
 
@@ -59,7 +56,7 @@ contract SurlTest is Test {
     }
 
     function testPut() public {
-        (uint256 status, ) = "https://httpbin.org/put".put();
+        (uint256 status,) = "https://httpbin.org/put".put();
 
         assertEq(status, 200);
     }
@@ -76,14 +73,43 @@ contract SurlTest is Test {
     }
 
     function testDelete() public {
-        (uint256 status, ) = "https://httpbin.org/delete".del();
+        (uint256 status,) = "https://httpbin.org/delete".del();
 
         assertEq(status, 200);
     }
 
     function testPatch() public {
-        (uint256 status, ) = "https://httpbin.org/patch".patch();
+        (uint256 status,) = "https://httpbin.org/patch".patch();
 
+        assertEq(status, 200);
+    }
+
+    function test1InchAPI() public {
+        string memory url = "https://api.1inch.io/v5.0/1/swap";
+        string memory params = string.concat(
+            "?fromAddress=",
+            vm.toString(address(0)),
+            "&fromTokenAddress=",
+            vm.toString(address(0x6B175474E89094C44Da98b954EedeAC495271d0F)),
+            "&toTokenAddress=",
+            vm.toString(address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)),
+            "&amount=",
+            vm.toString(uint256(100 ether)),
+            "&slippage=",
+            vm.toString(uint256(3)),
+            "&allowPartialFill=false",
+            "&disableEstimate=true"
+        );
+
+        string[] memory headers = new string[](2);
+        headers[0] = "accept: application/json";
+        headers[1] =
+            "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15";
+
+        string memory request = string.concat(url, params);
+        (uint256 status, bytes memory data) = request.get(headers);
+
+        console2.log(string(data));
         assertEq(status, 200);
     }
 }
