@@ -35,10 +35,7 @@ contract SurlTest is Test {
     function testPostFormData() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/x-www-form-urlencoded";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(
-            headers,
-            "formfield=myemail@ethereum.org"
-        );
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "formfield=myemail@ethereum.org");
 
         assertEq(status, 200);
 
@@ -59,7 +56,7 @@ contract SurlTest is Test {
     }
 
     function testPut() public {
-        (uint256 status, ) = "https://httpbin.org/put".put();
+        (uint256 status,) = "https://httpbin.org/put".put();
 
         assertEq(status, 200);
     }
@@ -76,13 +73,38 @@ contract SurlTest is Test {
     }
 
     function testDelete() public {
-        (uint256 status, ) = "https://httpbin.org/delete".del();
+        (uint256 status,) = "https://httpbin.org/delete".del();
 
         assertEq(status, 200);
     }
 
     function testPatch() public {
-        (uint256 status, ) = "https://httpbin.org/patch".patch();
+        (uint256 status,) = "https://httpbin.org/patch".patch();
+
+        assertEq(status, 200);
+    }
+
+    function test1InchAPI() public {
+        string memory url = "https://api.1inch.io/v5.0/1/swap";
+        string memory params = string.concat(
+            "?fromAddress=",
+            vm.toString(address(0xBE0eB53F46cd790Cd13851d5EFf43D12404d33E8)),
+            "&fromTokenAddress=",
+            vm.toString(address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE)),
+            "&toTokenAddress=",
+            vm.toString(address(0x111111111117dC0aa78b770fA6A738034120C302)),
+            "&amount=",
+            vm.toString(uint256(1 ether)),
+            "&slippage=",
+            vm.toString(uint256(3)),
+            "&allowPartialFill=false"
+        );
+
+        string[] memory headers = new string[](1);
+        headers[0] = "accept: application/json";
+
+        string memory request = string.concat(url, params);
+        (uint256 status,) = request.get(headers);
 
         assertEq(status, 200);
     }

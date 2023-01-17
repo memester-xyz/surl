@@ -125,10 +125,12 @@ library Surl {
             curlParams = string.concat(curlParams, ' -d "', body, '" ');
         }
 
+        string memory quotedURL = string.concat('"', self, '"');
+
         string[] memory inputs = new string[](3);
         inputs[0] = "sh";
         inputs[1] = "-c";
-        inputs[2] = string(bytes.concat("./src/curl.sh ", bytes(curlParams), bytes(self), ""));
+        inputs[2] = string(bytes.concat("./src/curl.sh ", bytes(curlParams), bytes(quotedURL), ""));
         bytes memory res = vm.ffi(inputs);
 
         (status, data) = abi.decode(res, (uint256, bytes));
