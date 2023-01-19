@@ -59,7 +59,7 @@ headers[0] = "Content-Type: application/json";
 
 ## Example
 
-We have example usage for both [tests](./test/Surl.t.sol) and [scripts](./script/).
+We have example usage for both [tests](./test/Surl.t.sol) and [scripts](./script/). The tests also demonstrate how surl can be used to request quotes from dex aggregators and parse their json response with [cheatcodes](https://book.getfoundry.sh/cheatcodes/parse-json).
 
 ## Contributing
 
