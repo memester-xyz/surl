@@ -5,37 +5,52 @@ import "forge-std/Test.sol";
 
 import {Surl} from "src/Surl.sol";
 import {strings} from "solidity-stringutils/strings.sol";
+import {stdJson} from "forge-std/StdJson.sol";
 
 contract SurlTest is Test {
     using Surl for *;
     using strings for *;
+    using stdJson for string;
 
     function setUp() public {}
 
     function testGet() public {
-        (uint256 status, bytes memory data) = "https://jsonplaceholder.typicode.com/todos/1".get();
+        (
+            uint256 status,
+            bytes memory data
+        ) = "https://jsonplaceholder.typicode.com/todos/1".get();
 
         assertEq(status, 200);
-        assertEq(string(data), '{  "userId": 1,  "id": 1,  "title": "delectus aut autem",  "completed": false}');
+        assertEq(
+            string(data),
+            '{  "userId": 1,  "id": 1,  "title": "delectus aut autem",  "completed": false}'
+        );
     }
 
     function testGetOptions() public {
         string[] memory headers = new string[](2);
         headers[0] = "accept: application/json";
         headers[1] = "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==";
-        (uint256 status, bytes memory data) = "https://httpbin.org/headers".get(headers);
+        (uint256 status, bytes memory data) = "https://httpbin.org/headers".get(
+            headers
+        );
 
         assertEq(status, 200);
 
         strings.slice memory responseText = string(data).toSlice();
-        assertTrue(responseText.contains(("QWxhZGRpbjpvcGVuIHNlc2FtZQ==").toSlice()));
+        assertTrue(
+            responseText.contains(("QWxhZGRpbjpvcGVuIHNlc2FtZQ==").toSlice())
+        );
         assertTrue(responseText.contains(("application/json").toSlice()));
     }
 
     function testPostFormData() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/x-www-form-urlencoded";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, "formfield=myemail@ethereum.org");
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(
+            headers,
+            "formfield=myemail@ethereum.org"
+        );
 
         assertEq(status, 200);
 
@@ -47,7 +62,10 @@ contract SurlTest is Test {
     function testPostJson() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/json";
-        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(headers, '{"foo": "bar"}');
+        (uint256 status, bytes memory data) = "https://httpbin.org/post".post(
+            headers,
+            '{"foo": "bar"}'
+        );
 
         assertEq(status, 200);
         strings.slice memory responseText = string(data).toSlice();
@@ -56,7 +74,7 @@ contract SurlTest is Test {
     }
 
     function testPut() public {
-        (uint256 status,) = "https://httpbin.org/put".put();
+        (uint256 status, ) = "https://httpbin.org/put".put();
 
         assertEq(status, 200);
     }
@@ -64,7 +82,10 @@ contract SurlTest is Test {
     function testPutJson() public {
         string[] memory headers = new string[](1);
         headers[0] = "Content-Type: application/json";
-        (uint256 status, bytes memory data) = "https://httpbin.org/put".put(headers, '{"foo": "bar"}');
+        (uint256 status, bytes memory data) = "https://httpbin.org/put".put(
+            headers,
+            '{"foo": "bar"}'
+        );
 
         assertEq(status, 200);
         strings.slice memory responseText = string(data).toSlice();
@@ -73,26 +94,27 @@ contract SurlTest is Test {
     }
 
     function testDelete() public {
-        (uint256 status,) = "https://httpbin.org/delete".del();
+        (uint256 status, ) = "https://httpbin.org/delete".del();
 
         assertEq(status, 200);
     }
 
     function testPatch() public {
-        (uint256 status,) = "https://httpbin.org/patch".patch();
+        (uint256 status, ) = "https://httpbin.org/patch".patch();
 
         assertEq(status, 200);
     }
 
+    // Swap 1 ETH for DAI on 1inch
     function test1InchAPI() public {
         string memory url = "https://api.1inch.io/v5.0/1/swap";
         string memory params = string.concat(
             "?fromAddress=",
-            vm.toString(address(0xBE0eB53F46cd790Cd13851d5EFf43D12404d33E8)),
+            vm.toString(address(0)),
             "&fromTokenAddress=",
             vm.toString(address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE)),
             "&toTokenAddress=",
-            vm.toString(address(0x111111111117dC0aa78b770fA6A738034120C302)),
+            vm.toString(address(0x6B175474E89094C44Da98b954EedeAC495271d0F)),
             "&amount=",
             vm.toString(uint256(1 ether)),
             "&slippage=",
@@ -104,8 +126,16 @@ contract SurlTest is Test {
         headers[0] = "accept: application/json";
 
         string memory request = string.concat(url, params);
-        (uint256 status,) = request.get(headers);
+        (uint256 status, bytes memory res) = request.get(headers);
 
         assertEq(status, 200);
+
+        string memory json = string(res);
+
+        address target = json.readAddress("tx.to");
+        bytes memory data = json.readBytes("tx.data");
+
+        assertEq(target, address(0x1111111254EEB25477B68fb85Ed929f73A960582));
+        assertGt(data.length, 0);
     }
 }
