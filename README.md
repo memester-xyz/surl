@@ -59,7 +59,7 @@ headers[0] = "Content-Type: application/json";
 
 ## Example
 
-We have example usage for both [tests](./test/Surl.t.sol) and [scripts](./script/). The tests also demonstrate how surl can be used to request quotes from dex aggregators and parse their json response with [cheatcodes](https://book.getfoundry.sh/cheatcodes/parse-json).
+We have example usage for both [tests](./test/Surl.t.sol) and [scripts](./script/). The tests also demonstrate how surl can be used to request quotes from DEX aggregators and parse their json response with [cheatcodes](https://book.getfoundry.sh/cheatcodes/parse-json).
 
 ## Contributing
 
@@ -78,11 +78,6 @@ forge test
 ## Why?
 
 [Forge scripting](https://book.getfoundry.sh/tutorials/solidity-scripting.html) is becoming more popular. With Surl you can extend your scripts easily with HTTP requests.
-
-## Goes well with:
-
-- [Solenv](https://github.com/memester-xyz/solenv): Load .env files in Solidity scripts/tests.
-- A JSON parser? We found some in-progress work on this front, but nothing quite ready. If you're working on a JSON parser in Solidity, please let us know.
 
 ## Development
 

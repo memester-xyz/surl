@@ -87,6 +87,9 @@ library Surl {
         internal
         returns (uint256 status, bytes memory data)
     {
+        string memory scriptStart = 'response=$(curl -s -w "\n%{http_code}" ';
+        string memory scriptEnd = '); status=$(tail -n1 <<< "$response"); data=$(sed "$ d" <<< "$response");data=$(echo "$data" | tr -d "\n"); cast abi-encode "response(uint256,string)" "$status" "$data";';
+
         string memory curlParams = "";
 
         for (uint256 i = 0; i < headers.length; i++) {
@@ -104,7 +107,7 @@ library Surl {
         string[] memory inputs = new string[](3);
         inputs[0] = "sh";
         inputs[1] = "-c";
-        inputs[2] = string(bytes.concat("./src/curl.sh ", bytes(curlParams), bytes(quotedURL), ""));
+        inputs[2] = string.concat(scriptStart, curlParams, quotedURL, scriptEnd, "");
         bytes memory res = vm.ffi(inputs);
 
         (status, data) = abi.decode(res, (uint256, bytes));
