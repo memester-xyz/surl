@@ -113,8 +113,8 @@ contract SurlTest is Test {
 
         string memory json = string(res);
 
-        address target = json.readAddress("tx.to");
-        bytes memory data = json.readBytes("tx.data");
+        address target = json.readAddress(".tx.to");
+        bytes memory data = json.readBytes(".tx.data");
 
         assertEq(target, address(0x1111111254EEB25477B68fb85Ed929f73A960582));
         assertGt(data.length, 0);
