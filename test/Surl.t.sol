@@ -70,8 +70,8 @@ contract SurlTest is Test {
 
         assertEq(status, 200);
         strings.slice memory responseText = string(data).toSlice();
-        assertTrue(responseText.contains(("foo").toSlice()));
-        assertTrue(responseText.contains(("bar").toSlice()));
+        assertTrue(responseText.contains(('"foo"').toSlice()));
+        assertTrue(responseText.contains(('"bar"').toSlice()));
     }
 
     function testDelete() public {
