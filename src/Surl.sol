@@ -99,7 +99,7 @@ library Surl {
         curlParams = string.concat(curlParams, " -X ", method, " ");
 
         if (bytes(body).length > 0) {
-            curlParams = string.concat(curlParams, ' -d "', body, '" ');
+            curlParams = string.concat(curlParams, ' -d \'', body, '\' ');
         }
 
         string memory quotedURL = string.concat('"', self, '"');
