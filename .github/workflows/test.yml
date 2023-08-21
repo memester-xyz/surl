@@ -16,6 +16,10 @@ jobs:
 
     name: Foundry project
     runs-on: ubuntu-latest
+
+    env:
+      ONEINCH_API_KEY: ${{ secrets.ONEINCH_API_KEY }}
+
     steps:
       - uses: actions/checkout@v3
         with:

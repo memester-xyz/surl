@@ -88,23 +88,25 @@ contract SurlTest is Test {
 
     // Swap 1 ETH for DAI on 1inch
     function test1InchAPI() public {
-        string memory url = "https://api.1inch.io/v5.0/1/swap";
+        string memory url = "https://api.1inch.dev/swap/v5.2/1/swap";
         string memory params = string.concat(
-            "?fromAddress=",
+            "?from=",
             vm.toString(address(0)),
-            "&fromTokenAddress=",
+            "&src=",
             vm.toString(address(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE)),
-            "&toTokenAddress=",
+            "&dst=",
             vm.toString(address(0x6B175474E89094C44Da98b954EedeAC495271d0F)),
             "&amount=",
             vm.toString(uint256(1 ether)),
             "&slippage=",
-            vm.toString(uint256(3)),
-            "&allowPartialFill=false"
+            vm.toString(uint256(3))
         );
 
-        string[] memory headers = new string[](1);
+        string memory apiKey = vm.envString("ONEINCH_API_KEY");
+
+        string[] memory headers = new string[](2);
         headers[0] = "accept: application/json";
+        headers[1] = string.concat("Authorization: Bearer ", apiKey);
 
         string memory request = string.concat(url, params);
         (uint256 status, bytes memory res) = request.get(headers);
