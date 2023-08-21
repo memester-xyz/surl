@@ -69,6 +69,8 @@ Clone this repo and run:
 forge install
 ```
 
+Get a [1inch API Key](https://1inch.dev/) and set it in a `.env` file (copy `.env.example`).
+
 Make sure all tests pass, add new ones if needed:
 
 ```

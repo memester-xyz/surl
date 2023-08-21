@@ -104,8 +104,6 @@ contract SurlTest is Test {
 
         string memory apiKey = vm.envString("ONEINCH_API_KEY");
 
-        // TODO: If api key is not found, do something
-
         string[] memory headers = new string[](2);
         headers[0] = "accept: application/json";
         headers[1] = string.concat("Authorization: Bearer ", apiKey);
